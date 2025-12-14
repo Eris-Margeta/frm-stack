@@ -7,6 +7,7 @@ Thanks for taking a look. This repo is intentionally a WIP template/showcase —
 - Be kind and constructive.
 - Keep changes scoped; avoid drive-by refactors.
 - Match existing code style (Biome) and patterns (Zod + neverthrow + oRPC).
+- Follow `code-guidelines.md` (DI-first design, structured logging, and explicit error handling).
 
 ## AI/LLM usage
 
@@ -41,4 +42,3 @@ Before opening a PR:
 - Documentation improvements (README + `docs/*.md`)
 - Small features that demonstrate patterns (e.g. TODO CRUD)
 - Bug fixes with a test when practical
-

@@ -1,36 +1,54 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import type { Logger as PinoLogger } from "pino";
-import { withLogger, CustomLogger, type Logger } from "#log";
+import { createLogger, type Logger, type LoggerConfig } from "#log";
 
-vi.mock("./config.js", () => ({
-  envConfig: {
-    env: "test",
-  },
+vi.mock("pino", () => ({
+  pino: vi.fn(() => ({
+    info: vi.fn(),
+    debug: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+  })),
 }));
 
-describe("CustomLogger", () => {
+import { pino } from "pino";
+
+describe("createLogger", () => {
+  let logger: Logger;
   let mockPino: {
-    level: string;
     info: ReturnType<typeof vi.fn>;
     debug: ReturnType<typeof vi.fn>;
     warn: ReturnType<typeof vi.fn>;
     error: ReturnType<typeof vi.fn>;
   };
-  let logger: Logger;
 
   beforeEach(() => {
+    vi.clearAllMocks();
     mockPino = {
-      level: "info",
       info: vi.fn(),
       debug: vi.fn(),
       warn: vi.fn(),
       error: vi.fn(),
     };
+    vi.mocked(pino).mockReturnValue(mockPino as never);
   });
 
-  describe("basic logging", () => {
+  describe("log level configuration", () => {
+    it("should set debug level in dev environment", () => {
+      const config: LoggerConfig = { env: "dev" };
+      createLogger(config);
+      expect(pino).toHaveBeenCalledWith({ level: "debug" });
+    });
+
+    it("should set info level in non-dev environment", () => {
+      const config: LoggerConfig = { env: "production" };
+      createLogger(config);
+      expect(pino).toHaveBeenCalledWith({ level: "info" });
+    });
+  });
+
+  describe("logging methods", () => {
     beforeEach(() => {
-      logger = new CustomLogger(mockPino as unknown as PinoLogger);
+      logger = createLogger({ env: "test" });
     });
 
     it("should log info messages", () => {
@@ -81,97 +99,6 @@ describe("CustomLogger", () => {
     it("should work without properties", () => {
       logger.info("simple message");
       expect(mockPino.info).toHaveBeenCalledWith({}, "simple message");
-    });
-  });
-
-  describe("with default properties", () => {
-    beforeEach(() => {
-      logger = new CustomLogger(mockPino as unknown as PinoLogger, undefined, {
-        service: "api",
-        env: "test",
-      });
-    });
-
-    it("should include default properties in all logs", () => {
-      logger.info("test", { userId: 1 });
-      expect(mockPino.info).toHaveBeenCalledWith(
-        {
-          service: "api",
-          env: "test",
-          userId: 1,
-        },
-        "test",
-      );
-    });
-
-    it("should allow overriding default properties", () => {
-      logger.info("test", { service: "worker" });
-      expect(mockPino.info).toHaveBeenCalledWith(
-        {
-          service: "worker",
-          env: "test",
-        },
-        "test",
-      );
-    });
-  });
-
-  describe("LoggerBuilder", () => {
-    it("should build logger with level", () => {
-      const _logger = withLogger(mockPino as unknown as PinoLogger)
-        .withLevel("debug")
-        .build();
-
-      expect(mockPino.level).toBe("debug");
-    });
-
-    it("should build logger with additional properties", () => {
-      const logger = withLogger(mockPino as unknown as PinoLogger)
-        .withAdditionalProperties({ service: "api", version: "1.0" })
-        .build();
-
-      logger.info("test");
-      expect(mockPino.info).toHaveBeenCalledWith(
-        {
-          service: "api",
-          version: "1.0",
-        },
-        "test",
-      );
-    });
-
-    it("should build logger with individual properties", () => {
-      const logger = withLogger(mockPino as unknown as PinoLogger)
-        .withProperty("service", "api")
-        .withProperty("version", "1.0")
-        .build();
-
-      logger.info("test");
-      expect(mockPino.info).toHaveBeenCalledWith(
-        {
-          service: "api",
-          version: "1.0",
-        },
-        "test",
-      );
-    });
-
-    it("should chain multiple builder methods", () => {
-      const logger = withLogger(mockPino as unknown as PinoLogger)
-        .withLevel("debug")
-        .withAdditionalProperties({ service: "api" })
-        .withProperty("region", "us-east")
-        .build();
-
-      expect(mockPino.level).toBe("debug");
-      logger.info("test");
-      expect(mockPino.info).toHaveBeenCalledWith(
-        {
-          service: "api",
-          region: "us-east",
-        },
-        "test",
-      );
     });
   });
 });

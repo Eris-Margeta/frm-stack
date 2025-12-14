@@ -1,12 +1,14 @@
-# NOT FINAL (assembled quickly for feedback)
+# WIP showcase template (community-built)
 
-This repo is a “showcase template” I threw together quickly to share patterns and get opinions.
+This repo is a **demo monorepo template** meant to evolve into a clear, modern reference example.
 
-If you’re reviewing this, I’d love feedback on:
+Everything here is **illustrative, not prescriptive** — pick what you like, swap what you don’t (ORM/RPC/auth/testing/etc.).
+
+If you’re reviewing this, I’d love feedback and PRs to help build it up:
 - the monorepo structure (`apps/*` vs `packages/*`)
-- the service/router layering (oRPC + Hono + neverthrow)
+- the service/router layering (oRPC + Hono + neverthrow) and **DI-first design**
 - the DB workflow (Atlas + `db/schema.sql` + Kysely + codegen)
-- the testing setup (shared Postgres container pattern)
+- the testing setup (shared Postgres container pattern — **currently an experiment**)
 - the “no build / JIT” setup and DX tradeoffs (especially HMR for Node/shared packages)
 
 ## Intro
@@ -105,6 +107,7 @@ Then run the same steps (`pnpm install`, `just setup`, `pnpm dev`).
 
 - Node/shared package HMR is still not great (would love best practices for “JIT workspace packages” + watch mode).
 - Vitest + workspace “subpath imports” (`#*`) can be tricky. I currently work around it with a custom resolver plugin in `apps/backend/api/vitest.config.ts` (not sure if this is the best solution).
+- The shared testcontainers singleton approach is intentionally aggressive for speed; I’m still evaluating whether it’s the right default long-term.
 
 ## CI/CD
 
@@ -118,6 +121,7 @@ Then run the same steps (`pnpm install`, `just setup`, `pnpm dev`).
 - `docs/DB.md`
 - `docs/AUTH.md`
 - `docs/NEVERTHROW.md`
+- `docs/TECH_CHOICES.md`
 - `docs/TESTING.md`
 - `docs/CICD.md`
 - `docs/vitest.config.shared.md`
@@ -126,7 +130,7 @@ Then run the same steps (`pnpm install`, `just setup`, `pnpm dev`).
 
 ## Contributing
 
-See `CONTRIBUTING.md` (LLMs are fine, but you’re responsible for correctness/security/licensing).
+See `CONTRIBUTING.md` and `code-guidelines.md` (LLMs are fine, but you’re responsible for correctness/security/licensing).
 
 ## License
 

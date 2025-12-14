@@ -9,6 +9,10 @@
 
 This document explains our shared database testing pattern and how to write safe, fast tests.
 
+Notes:
+- Prefer **DI** in app code (pass `db`, `logger`, etc.) so tests can swap real dependencies for fakes.
+- The shared testcontainers singleton is an **experiment**; if you dislike the tradeoffs, use per-suite/per-test containers instead.
+
 ## Overview
 
 We use a **shared PostgreSQL container** approach with **testcontainers snapshots** for maximum test performance:
@@ -21,6 +25,8 @@ We use a **shared PostgreSQL container** approach with **testcontainers snapshot
 ## How It Works
 
 ### 1. **Shared Container** (Singleton Pattern)
+
+This is intentionally aggressive for speed and is still considered **experimental** in this template.
 
 ```typescript
 // One PostgreSQL container for the entire test suite

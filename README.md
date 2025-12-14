@@ -11,6 +11,8 @@ If you’re reviewing this, I’d love feedback and PRs to help build it up:
 - the testing setup (shared Postgres container pattern — **currently an experiment**)
 - the “no build / JIT” setup and DX tradeoffs (especially HMR for Node/shared packages)
 
+Note: This kind of repo structure has served me really well in startups and in personal projects. If you have a bigger team, more enterprisey needs, you might want to consider a more traditional monorepo structure that people are more familiar with. If you have any questions you can reach out via email, twitter, github or wherever you find me.
+
 ## Intro
 
 Please give your thoughts — the idea for this monorepo is to showcase how you might approach a monorepo that will grow with your company. It tries to balance DX with scalability/maintainability.

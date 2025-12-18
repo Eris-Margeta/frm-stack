@@ -1,33 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "#providers/auth-provider";
 import { SignIn } from "#components/auth/signin";
 import { SignUp } from "#components/auth/signup";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@yourcompany/web/components/base/tabs";
-import { useNavigate, useSearchParams } from "react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
-export default function AuthPage() {
+type AuthMode = "signin" | "signup";
+
+type AuthSearch = {
+  mode?: AuthMode;
+};
+
+export const Route = createFileRoute("/auth")({
+  component: AuthComponent,
+  validateSearch: (search: Record<string, unknown>): AuthSearch => {
+    const mode = search.mode as string | undefined;
+    if (mode === "signin" || mode === "signup") {
+      return { mode };
+    }
+    return { mode: "signin" };
+  },
+});
+
+function AuthComponent() {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const initialModeParam = searchParams.get("mode");
+  const search = Route.useSearch();
 
-  const initialMode = initialModeParam === "signup" ? "signup" : "signin";
-  const [activeTab, setActiveTab] = useState<"signin" | "signup">(initialMode);
+  const activeTab = search.mode ?? "signin";
 
-  useEffect(() => {
-    if (initialModeParam === "signup" || initialModeParam === "signin") {
-      setActiveTab(initialModeParam);
-    }
-  }, [initialModeParam]);
+  // Update search params when tab changes
+  const handleTabChange = (value: string) => {
+    const mode = value as AuthMode;
+    navigate({
+      to: "/auth",
+      search: { mode } as AuthSearch,
+      replace: true,
+    });
+  };
 
+  // Redirect authenticated users to home
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/", { replace: true });
+      navigate({
+        to: "/",
+        replace: true,
+      });
     }
   }, [isAuthenticated, navigate]);
 
   const handleAuthSuccess = () => {
-    navigate("/", { replace: true });
+    navigate({
+      to: "/",
+      replace: true,
+    });
   };
 
   if (isAuthenticated) {
@@ -37,7 +63,7 @@ export default function AuthPage() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4" data-testid="auth-page">
       <div className="w-full max-w-md">
-        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "signin" | "signup")}>
+        <Tabs value={activeTab} onValueChange={handleTabChange}>
           <TabsList className="grid w-full grid-cols-2 mb-6">
             <TabsTrigger value="signin">Sign In</TabsTrigger>
             <TabsTrigger value="signup">Sign Up</TabsTrigger>

@@ -16,7 +16,8 @@
       "!!**/storybook-static",
       "!!**/.direnv",
       "!!**/.turbo",
-      "!!**/.git"
+      "!!**/.git",
+      "!!**/routeTree.gen.ts"
     ]
   },
   "formatter": {

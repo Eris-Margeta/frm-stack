@@ -7,8 +7,13 @@ import { Button } from "@yourcompany/web/components/base/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@yourcompany/web/components/base/card";
 import { Checkbox } from "@yourcompany/web/components/base/checkbox";
 import { Input } from "@yourcompany/web/components/base/input";
+import { createFileRoute } from "@tanstack/react-router";
 
-export default function IndexPage() {
+export const Route = createFileRoute("/")({
+  component: HomeComponent,
+});
+
+function HomeComponent() {
   const { data: session } = useSession();
   const api = useApi();
   const queryClient = useQueryClient();

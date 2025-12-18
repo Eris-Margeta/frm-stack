@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import topLevelAwait from "vite-plugin-top-level-await";
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -12,7 +13,10 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "dist",
     },
-    plugins: [react(), tailwindcss(), tsconfigPaths(), topLevelAwait()],
+    plugins: [tanstackRouter({
+      target: 'react',
+      autoCodeSplitting: true,
+    }), react(), tailwindcss(), tsconfigPaths(), topLevelAwait()],
     server: {
       port,
       host: "0.0.0.0",

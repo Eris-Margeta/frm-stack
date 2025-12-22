@@ -116,16 +116,27 @@ Then run the same steps (`pnpm install`, `just setup`, `pnpm dev`).
 
 ## Docs
 
-- `docs/ORPC.md`
-- `docs/DB.md`
-- `docs/AUTH.md`
-- `docs/NEVERTHROW.md`
-- `docs/TECH_CHOICES.md`
-- `docs/TESTING.md`
-- `docs/CICD.md`
-- `docs/vitest.config.shared.md`
-- `docs/CONFIG.md`
-- `docs/LOGGING.md`
+- `docs/orpc.md`
+- `docs/db.md`
+- `docs/auth.md`
+- `docs/neverthrow.md`
+- `docs/tech-choices.md`
+- `docs/testing.md`
+- `docs/cicd.md`
+- `docs/vitest_config.md`
+- `docs/config.md`
+- `docs/logging.md`
+- `docs/skills.md`
+
+## Skills (AI Workflows)
+
+:warning: **Warning**: Skills are a work in progress. I am playing around with them to see if they are useful.
+
+Move skills into appropriate folder on your system or repository. Since each provider requires a different location, see your LLM provider docs for relevant locations, eg. Codex can be placed inside `.codex/skills/` while Claude can be placed inside `./.claude/skills/`
+
+This repo includes [Skills](docs/skills.md) — modular instruction sets that help AI agents work effectively in this codebase.
+
+Skills live in `.skills/` and work tracking lives in `.work/`. See `docs/skills.md` for details.
 
 ## Contributing
 

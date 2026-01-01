@@ -382,6 +382,70 @@
         }
       }
     },
+    "pgcli@latest": {
+      "last_modified": "2025-12-11T04:04:52Z",
+      "resolved": "github:NixOS/nixpkgs/5d6bdbddb4695a62f0d00a3620b37a15275a5093#pgcli",
+      "source": "devbox-search",
+      "version": "4.3.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/cslcxm5vqvd89jr6dbiv9si7j6fk4b10-python3.13-pgcli-4.3.0",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/wk71csvpzlnll1c0k82alc6bq2cppfns-python3.13-pgcli-4.3.0-dist"
+            }
+          ],
+          "store_path": "/nix/store/cslcxm5vqvd89jr6dbiv9si7j6fk4b10-python3.13-pgcli-4.3.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/zhfdb77vin6z26s0lrdznv17g6agiiyk-python3.13-pgcli-4.3.0",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/zikjqfjxbl02gg8myy36az568bi6cb0l-python3.13-pgcli-4.3.0-dist"
+            }
+          ],
+          "store_path": "/nix/store/zhfdb77vin6z26s0lrdznv17g6agiiyk-python3.13-pgcli-4.3.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/3q8ryn0pbcn1flngrrhn97a2vscnma7j-python3.13-pgcli-4.3.0",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/qk3zy6gg8ffx3w5fcc0c5i6i2iw0ckzw-python3.13-pgcli-4.3.0-dist"
+            }
+          ],
+          "store_path": "/nix/store/3q8ryn0pbcn1flngrrhn97a2vscnma7j-python3.13-pgcli-4.3.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/akzms0a6l7f80250gz7qcs81cgqv92qh-python3.13-pgcli-4.3.0",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/nigz70lfi7yxc9czarffz7qy8wrw90wz-python3.13-pgcli-4.3.0-dist"
+            }
+          ],
+          "store_path": "/nix/store/akzms0a6l7f80250gz7qcs81cgqv92qh-python3.13-pgcli-4.3.0"
+        }
+      }
+    },
     "pnpm@latest": {
       "last_modified": "2025-11-28T17:56:46Z",
       "resolved": "github:NixOS/nixpkgs/24e915b36ca87d32777d766da3a3f4e3ce22cc98#pnpm",

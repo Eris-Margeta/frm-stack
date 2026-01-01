@@ -6,7 +6,8 @@
     "pnpm@latest",
     "atlas@latest",
     "jq@latest",
-    "gh@latest"
+    "gh@latest",
+    "pgcli@latest"
   ],
   "env": {
     "PATH": "$PATH:$PWD/bin"

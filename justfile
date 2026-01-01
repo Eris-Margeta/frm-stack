@@ -39,7 +39,9 @@ db-migration-hash:
 	@atlas migrate hash --dir "file://db/migrations"
 
 db-psql:
-	@{{dc}} exec -it postgres psql -U postgres -h localhost -d postgres
+	@echo "EXPERIMENT: Testing pgcli (Postgres CLI with autocompletion and syntax highlighting). Fallback to psql available if needed."
+	@pgcli postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable
+	# @{{dc}} exec -it postgres psql -U postgres -h localhost -d postgres
 
 # Generate TypeScript types from deployed database schema
 # Connects to PostgreSQL, introspects current schema, converts to TypeScript
